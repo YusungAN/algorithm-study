@@ -4,15 +4,14 @@
 
 #define MAX_SIZE 100000
 
-void nodeChange(int* a, int* b)
+void swap(int* a, int* b)
 {
 	int temp = *a;
 	*a = *b;
 	*b = temp;
 }
 
-typedef struct priorityQueue
-{
+typedef struct {
 	int heap[MAX_SIZE];
 	int count;
 } priorityQueue;
@@ -23,9 +22,8 @@ void push(priorityQueue* root, int data)
 	root->heap[root->count] = data;
 	int now = root->count;
 	int parent = (root->count - 1) / 2;
-	while (now > 0 && root->heap[now] > root->heap[parent])
-	{
-		nodeChange(&root->heap[now], &root->heap[parent]);
+	while (now > 0 && root->heap[now] > root->heap[parent]) {
+		swap(&root->heap[now], &root->heap[parent]);
 		now = parent;
 		parent = (parent - 1) / 2;
 	}
@@ -46,7 +44,7 @@ int pop(priorityQueue* root) {
 		if (root->heap[target] < root->heap[rightChild] && rightChild < root->count) target = rightChild;
 		if (target == now) break;
 		else {
-			nodeChange(&root->heap[now], &root->heap[target]);
+			swap(&root->heap[now], &root->heap[target]);
 			now = target;
 			leftChild = now * 2 + 1;
 			rightChild = now * 2 + 2;
