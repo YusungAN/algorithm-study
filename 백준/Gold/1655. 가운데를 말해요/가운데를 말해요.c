@@ -14,48 +14,48 @@ void swap(int* a, int* b)
 typedef struct {
 	int heap[MAX_SIZE];
 	int count;
-} priorityQueue;
+} PriorityQueue;
 
-void push(priorityQueue* root, int data)
+void push(PriorityQueue* pq, int data)
 {
-	if (root->count >= MAX_SIZE) return;
-	root->heap[root->count] = data;
-	int now = root->count;
-	int parent = (root->count - 1) / 2;
-	while (now > 0 && root->heap[now] > root->heap[parent]) {
-		swap(&root->heap[now], &root->heap[parent]);
+	if (pq->count >= MAX_SIZE) return;
+	pq->heap[pq->count] = data;
+	int now = pq->count;
+	int parent = (pq->count - 1) / 2;
+	while (now > 0 && pq->heap[now] > pq->heap[parent]) {
+		swap(&pq->heap[now], &pq->heap[parent]);
 		now = parent;
 		parent = (parent - 1) / 2;
 	}
 
-	root->count++;
+	pq->count++;
 }
 
-int pop(priorityQueue* root) {
-	if (root->count <= 0) return -9999;
-	int res = root->heap[0];
-	root->count--;
-	root->heap[0] = root->heap[root->count];
+int pop(PriorityQueue* pq) {
+	if (pq->count <= 0) return -99999;
+	int res = pq->heap[0];
+	pq->count--;
+	pq->heap[0] = pq->heap[pq->count];
 
-	int now = 0, leftChild = 1, rightChild = 2;
+	int now = 0, left_child = 1, right_child = 2;
 	int target = now;
-	while (leftChild < root->count) {
-		if (root->heap[target] < root->heap[leftChild]) target = leftChild;
-		if (root->heap[target] < root->heap[rightChild] && rightChild < root->count) target = rightChild;
+	while (left_child < pq->count) {
+		if (pq->heap[target] < pq->heap[left_child]) target = left_child;
+		if (pq->heap[target] < pq->heap[right_child] && right_child < pq->count) target = right_child;
 		if (target == now) break;
 		else {
-			swap(&root->heap[now], &root->heap[target]);
+			swap(&pq->heap[now], &pq->heap[target]);
 			now = target;
-			leftChild = now * 2 + 1;
-			rightChild = now * 2 + 2;
+			left_child = now * 2 + 1;
+			right_child = now * 2 + 2;
 		}
 	}
 	return res;
 }
 
 int main(void) {
-	priorityQueue lq;
-	priorityQueue rq;
+	PriorityQueue lq;
+	PriorityQueue rq;
 	lq.count = 0;
 	rq.count = 0;
 
