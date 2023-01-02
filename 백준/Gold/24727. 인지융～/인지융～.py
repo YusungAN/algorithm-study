@@ -42,19 +42,8 @@ for i in reversed(range(n, 2*n-1)):
     for j in range(i-n+1, n):
         if ecnt >= e:
             break
-        if arr[j][i-j] == 0 and not is_near_e(i-j, j, 1):
-            arr[j][i-j] = 2
-            ecnt += 1
-    if ecnt >= e:
-        break
-
-for i in reversed(range(n)):
-    for j in range(i+1):
-        if ecnt >= e:
-            break
-        if arr[j][i-j] == 0 and not is_near_e(i - j, j, 1):
-            arr[j][i-j] = 2
-            ecnt += 1
+        arr[j][i-j] = 2
+        ecnt += 1
     if ecnt >= e:
         break
 
