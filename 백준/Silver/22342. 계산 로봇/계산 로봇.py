@@ -9,7 +9,6 @@ dp = [[0]*n for _ in range(m)]
 _max = 0
 for i in range(m):
     dp[i][0] = li[i][0]
-    _max = max(_max, li[i][0])
 
 for i in range(1, n):
     for j in range(m):
